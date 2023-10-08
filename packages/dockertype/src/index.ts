@@ -1,0 +1,1 @@
+export { defineDockerGenerator } from "./define";

@@ -1,0 +1,46 @@
+{
+  "name": "dockertype",
+  "version": "0.0.1",
+  "description": "Programatically generate dockerfiles using TypeScript",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "dockertype": "./bin/dockertype.cjs"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "prepare": "pnpm run build:cli",
+    "pnpm:build": "pnpm run build:lib && pnpm run build:cli",
+    "build:lib": "unbuild",
+    "build:cli": "esbuild src/cli/run.ts --outfile=bin/dockertype.cjs --bundle --platform=node --external:cfonts --target=node14",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "consola": "^3.2.3",
+    "magicast": "^0.3.0",
+    "ts-morph": "^20.0.0",
+    "typescript": "^5.2.2",
+    "yargs": "^17.7.2",
+    "zx": "^7.2.3"
+  },
+  "devDependencies": {
+    "@types/yargs": "^17.0.28",
+    "esbuild": "^0.19.4",
+    "unbuild": "^2.0.0"
+  }
+}
