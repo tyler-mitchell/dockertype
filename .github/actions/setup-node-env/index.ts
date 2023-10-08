@@ -49,6 +49,7 @@ function setEnvironmentVariables(
 
     if (version) {
       core.exportVariable(envKey, version);
+      core.setOutput('pnpm-version', version)
     }
   });
 }

@@ -1,33 +1,29 @@
 name: Setup Node and PNPM
 description: Set up Node.js and PNPM
 
-inputs:
-  node-version:
-    description: The version of Node.js to install
-    required: false
-
-  pnpm-version:
-    description: The version of PNPM to install
-    required: false
-
 runs:
   using: composite
   steps:
     - uses: actions/checkout@v3
-    - uses: pnpm/action-setup@v2
-      with:
-        version: ${{ inputs.pnpm-version }}
 
-    - name: Use Node.js ${{ inputs.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ inputs.node-version }}
-        cache: pnpm
-
-    - name: Install dependencies
-      run: pnpm install
+    - name: Set NODE_VERSION and PNPM_VERSION environment variables
+      id: package-json-engines
+      run: |
+        echo "NODE_VERSION=$(jq -r '.engines.node' package.json)" >> $GITHUB_ENV
+        echo "PNPM_VERSION=$(jq -r '.engines.pnpm' package.json)" >> $GITHUB_ENV
       shell: bash
 
-    - name: Set NODE_VERSION from package.json
-      run: pnpm --filter=repo-actions actions:set-node-env
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: pnpm
+
+    - name: Setup PNPM
+      uses: pnpm/action-setup@v2
+      with:
+        version: ${{ env.PNPM_VERSION }}
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
       shell: bash
