@@ -1,0 +1,27 @@
+{
+  "name": "dockertype-monorepo",
+  "type": "module",
+  "description": "Dockertype monorepo",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "main": "index.js",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8.8.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "pnpm --filter=dockertype build",
+    "release": "pnpm run build:ci && changeset publish",
+    "build:ci": "pnpm install --frozen-lockfile && pnpm run lint && pnpm run build",
+    "giget:typescript-action": "npx giget@latest gh:actions/typescript-action .github/actions/new-action"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "1.0.0-beta.21",
+    "@changesets/cli": "^2.26.2",
+    "eslint": "^8.51.0",
+    "vitest": "^0.34.6"
+  }
+}

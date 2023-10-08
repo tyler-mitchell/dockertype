@@ -1,0 +1,28 @@
+# .github/actions/setup-node-env/action.yml
+
+name: Setup Node and PNPM
+description: Set up Node.js and PNPM
+
+runs:
+  using: composite
+  steps:
+    - name: Set NODE_VERSION and PNPM_VERSION environment variables
+      run: |
+        echo "NODE_VERSION=$(jq -r '.engines.node' package.json)" >> $GITHUB_ENV
+        echo "PNPM_VERSION=$(jq -r '.engines.pnpm' package.json)" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Setup PNPM
+      uses: pnpm/action-setup@v2
+      with:
+        version: ${{ env.PNPM_VERSION }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: pnpm
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      shell: bash
