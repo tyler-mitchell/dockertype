@@ -34,13 +34,14 @@
     "consola": "^3.2.3",
     "magicast": "^0.3.0",
     "ts-morph": "^20.0.0",
-    "typescript": "^5.2.2",
+
     "yargs": "^17.7.2",
     "zx": "^7.2.3"
   },
   "devDependencies": {
     "@types/yargs": "^17.0.28",
     "esbuild": "^0.19.4",
+    "typescript": "^5.2.2",
     "unbuild": "^2.0.0"
   }
 }
