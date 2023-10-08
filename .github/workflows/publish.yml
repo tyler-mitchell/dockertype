@@ -1,3 +1,5 @@
+# Note: https://github.com/JS-DevTools/npm-publish
+
 name: Publish
 on:
   workflow_run:
@@ -9,6 +11,8 @@ on:
       - main
 # Ensure that two published workflows don't happen at the same time
 concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+
 
 jobs:
   publish:
