@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: /.github/actions/setup-node-env
+      - uses: ./.github/actions/setup-node-env
 
       - name: Create Release Pull Request or Publish
         id: changesets
